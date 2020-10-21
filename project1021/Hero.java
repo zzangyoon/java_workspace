@@ -1,4 +1,4 @@
-//3
+//3 구글문제풀이 - java - 5.메서드호출 - 1번문제
 public class Hero {
 	int hp=10;
 	boolean fly=false;
