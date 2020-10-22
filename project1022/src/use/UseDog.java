@@ -16,7 +16,7 @@ class UseDog{
 		//경로가 일반 파일일 경우는 path 환경변수 이지만,
 		//경로가 클래스 파일일 경우는 classpath 환경변수를 이용한다
 		//이때 classpath 환경변수에 어느 경로를 등록해야 할까?
-		//
+
 		Dog d = new Dog();
 		d.run();
 
