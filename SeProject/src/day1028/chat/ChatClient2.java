@@ -1,5 +1,5 @@
-//5
-package day1027.gui;
+//2.
+package day1028.chat;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,7 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class ChatClient extends JFrame implements KeyListener{
+public class ChatClient2 extends JFrame implements KeyListener{
 									/* is a 					is a	*/
 	//1
 	JTextArea area;
@@ -22,8 +22,10 @@ public class ChatClient extends JFrame implements KeyListener{
 	JPanel p_south;
 	JTextField t_input;
 	JButton bt;
+	ChatClient ch;
 	
-	public ChatClient() {
+	public ChatClient2(ChatClient ch) {
+		this.ch = ch;
 		//2.생성
 		area = new JTextArea();
 		scroll = new JScrollPane(area);
@@ -40,7 +42,7 @@ public class ChatClient extends JFrame implements KeyListener{
 		add(p_south, BorderLayout.SOUTH);	//남쪽에 패널부착
 		
 		//6. 스타일적용
-		area.setBackground(Color.YELLOW);
+		area.setBackground(Color.GREEN);
 		t_input.setBackground(Color.BLUE);
 		t_input.setForeground(Color.WHITE);
 		bt.setBackground(Color.BLACK);
@@ -49,11 +51,11 @@ public class ChatClient extends JFrame implements KeyListener{
 		t_input.setPreferredSize(new Dimension(285,30));
 		
 		//9. 보여주기 전에 미리 연결해놓자(컴포넌트와 리스너 연결)
-		bt.addActionListener(new MyActionListener(t_input, area));
 		t_input.addKeyListener(this);		//11.내가 리스너다!!! (프레임)
 		
 		//5. 조립이 다 끝났고, 이젠 윈도우에 보여주기
-		setSize(300,400);
+		//setSize(300,400);
+		setBounds(500, 150, 300, 400);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	
@@ -74,12 +76,18 @@ public class ChatClient extends JFrame implements KeyListener{
 		//System.out.println(key+" 눌렀어?");
 		
 		if(key == 10) {	//엔터 치면
-			String msg = t_input.getText();	//텍스트필드 값을 구하자!
-			area.append(msg+"\n");	//api문서 찾아보기
-			t_input.setText("");	//빈텍스트로 초기화
+			send();
 		}
 	}
-	public static void main(String[] args) {
-		new ChatClient();
+	public void send() {
+		//나에대한 처리
+		String msg = t_input.getText();	//텍스트필드 값을 구하자!
+		area.append(msg+"\n");	//api문서 찾아보기
+		t_input.setText("");	//빈텍스트로 초기화
+		
+		//너에대한 처리
+		ch.area.append(msg+"\n");	//api문서 찾아보기
+		ch.t_input.setText("");	//빈텍스트로 초기화
 	}
+	//동생은 main이 필요없다
 }
