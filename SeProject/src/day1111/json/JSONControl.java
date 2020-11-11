@@ -17,7 +17,7 @@ public class JSONControl {
 		//StringBuffer를 쓴 이유? String은 불변의 특징이 있으므로, 너무 많은 문자열 상수를 만들어내지 않기 위해
 		StringBuffer sb = new StringBuffer();
 		sb.append("{");
-		sb.append("\"\name\":\"zino\"");
+		sb.append("\"name\":\"zino\"");
 		sb.append("}");
 
 		//sb에 담겨진 표기는 실제 json 객체는 아니므로, 파싱단계를 거쳐 json객체로 전환해야 한다!
