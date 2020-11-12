@@ -1,5 +1,5 @@
 package use;
-
+/*
 import food.Burger;
 
 public class UseBurger{
@@ -8,3 +8,4 @@ public class UseBurger{
 		System.out.println(b.getName());
 	}
 }
+*/
