@@ -49,8 +49,8 @@ public class BoardList extends JPanel{
 				//상세보기가 보유한 getDetail() 메서드 호출하기!
 				BoardDetail boardDetail = (BoardDetail)boardApp.getPages(BoardApp.BOARD_DETAIL);
 				String board_id = (String)table.getValueAt(table.getSelectedRow(), 0);	//board_id
-				boardDetail.getDetail(Integer.parseInt(board_id));
-				
+				boardDetail.getDetail(Integer.parseInt(board_id));	//상세보기 메서드 호출
+				boardDetail.updateHit(Integer.parseInt(board_id));	//조회수 증가 메서드 호출
 				
 				boardApp.setPage(boardApp.BOARD_DETAIL);//상세보기로
 			}
