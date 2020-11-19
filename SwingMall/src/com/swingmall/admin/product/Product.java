@@ -2,6 +2,7 @@ package com.swingmall.admin.product;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,9 +27,11 @@ public class Product extends Page{
 	JTable table;
 	JScrollPane s1, s2;	//하나는 tree용, 하나는 table용
 	JButton bt_regist;
+	
 	ArrayList<String> topList;	//최상위 카테고리 이름을 담게될 리스트 top, down, accessory, shoes
 	ArrayList<ArrayList> subList = new ArrayList<ArrayList>();	//모든 하위 카테고리 (여기에 하위카테고리 (list)  담은 것을 넣을 것이다)
 	ProductModel model;
+	RegistForm registForm;
 	
 	public Product(AdminMain adminMain) {
 		super(adminMain);
@@ -54,6 +57,7 @@ public class Product extends Page{
 		s1 = new JScrollPane(tree);
 		s2 = new JScrollPane(table);
 		bt_regist = new JButton("등록하기");
+		registForm = new RegistForm(this);	//등록폼 생성
 	
 		//스타일
 		s1.setPreferredSize(new Dimension(200, AdminMain.HEIGHT-100));
@@ -67,10 +71,13 @@ public class Product extends Page{
 		p_center.add(s2);	//센터 패널에 테이블 부착
 		p_center.add(bt_regist);	//센터패널에 버튼 부착
 		
+
 		add(p_west, BorderLayout.WEST);
+		//현재 패널이 보더레이아웃이므로, 
 		add(p_center);
+		//add(registForm);
 		
-		getProductList(null);
+		getProductList(null);	//모든상품 가져오기
 		
 		//tree는 이벤트가 별도로 지원된다...(actionevent 안됨)
 		tree.addTreeSelectionListener((e)->{
@@ -78,7 +85,15 @@ public class Product extends Page{
 			//선택한 노드의 텍스트를 매개변수로 지정
 			DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode)tree.getLastSelectedPathComponent();
 			//System.out.println(selectedNode.toString());
-			getProductList(selectedNode.toString());	//모든 상품 가져오기
+			if(selectedNode.toString().equals("상품목록")) {	//최상위 상품목록 누르면 모든상품 가져오기
+				getProductList(null);	//모든 상품 가져오기
+			}else {
+				getProductList(selectedNode.toString());	//모든 상품 가져오기				
+			}
+		});
+		
+		bt_regist.addActionListener((e)->{
+			addRemoveContent(p_center, registForm);
 		});
 		
 	}
@@ -200,6 +215,13 @@ public class Product extends Page{
 		
 	}
 		
+	//보여질 컨텐츠와 가려질 컨텐츠를 제어하는 메서드
+	public void addRemoveContent(Component removeObj, Component addObj) {
+		this.remove(removeObj);	//제거될 자(패널)
+		this.add(addObj);	//부착될 자(패널)
+		
+		((JPanel)addObj).updateUI();
+	}
 		
 	
 }
